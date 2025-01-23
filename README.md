@@ -10,6 +10,7 @@ Gudang Management System adalah aplikasi sederhana berbasis PHP Native yang dira
 ## Teknologi yang Digunakan
 - **PHP**: Versi 8.4.2
 - **MySQL**: Untuk database
+- **Composer** : Untuk install Dependency
 - **XAMPP/Laragon**: Sebagai server lokal
 
 ## Instalasi
@@ -21,19 +22,25 @@ Clone repository ini ke folder server lokal Anda:
 git clone <url-repo>
 ```
 
-### 2. Buat Database
+### 2. Install Dependency
+Install dependency menggunakan composer :
+```bash
+composer install
+```
+
+### 3. Buat Database
 - Buka phpMyAdmin atau alat manajemen database lainnya.
 - Buat database baru dengan nama `db_gudang`.
 
-### 3. Import File SQL
+### 4. Import File SQL
 - Import file SQL yang terdapat di repository (`db/db_gudang.sql`) ke dalam database `db_gudang` yang telah dibuat.
 
-### 4. Pindahkan Folder ke Server Lokal
+### 5. Pindahkan Folder ke Server Lokal
 - Pindahkan folder hasil clone ke direktori server lokal:
   - Untuk XAMPP: `htdocs/`
   - Untuk Laragon: `www/`
 
-### 5. Jalankan Aplikasi
+### 6. Jalankan Aplikasi
 - Pastikan server lokal (Apache dan MySQL) telah aktif.
 - Akses aplikasi melalui browser:
   ```
@@ -47,7 +54,7 @@ Berikut adalah tampilan dari aplikasi:
 ![Dashboard](screenshots/image.png)
 
 ## Catatan
-- Pastikan PHP dan MySQL sudah terinstal di komputer Anda.
+- Pastikan PHP, Composer dan MySQL sudah terinstal di komputer Anda.
 - Jika Anda menggunakan port selain default (80), tambahkan port tersebut saat mengakses aplikasi. Contoh: `http://localhost:8080/nama-folder-project`.
 
 ---
