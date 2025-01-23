@@ -7,7 +7,7 @@
            <ion-icon name="logo-buffer" size="large"></ion-icon>
         </div>
         <div>
-          <h4 class="logo-text fw-bold">Gudang</h4>
+          <h4 class="logo-text fw-bold text-muted">Gudang</h4>
         </div>
       </div>
       <!--navigation-->
