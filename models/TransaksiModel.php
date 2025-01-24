@@ -110,6 +110,38 @@ class TransaksiModel
 
     }
 
+    public function updateStokBarangWhenDelete($kode_barang, $jumlah, $jenis_transaksi)
+    {
+        if ($jenis_transaksi == 'keluar') {
+            $operator = '+';
+        } else {
+            $operator = '-';
+        }
+
+        $sql    = "UPDATE barang SET stok = stok $operator :jumlah WHERE kode_barang = :kode_barang";
+        $params = [
+            ':jumlah'      => $jumlah,
+            ':kode_barang' => $kode_barang,
+        ];
+
+        $result = $this->db->executeQuery($sql, $params);
+
+        if ($result) {
+            $response = [
+                "success" => true,
+                "message" => "Stok updated successfully",
+            ];
+        } else {
+            $response = [
+                "success" => false,
+                "message" => "Failed to update stok",
+            ];
+        }
+
+        return json_encode($response);
+
+    }
+
     public function getTransaksi($id)
     {
         $sql    = "SELECT * FROM transaksi WHERE id = :id";
@@ -158,6 +190,9 @@ class TransaksiModel
 
     public function deleteTransaksi($id)
     {
+        $barangData = $this->getTransaksi($id);
+        $this->updateStokBarangWhenDelete($barangData[0]['kode_barang'], $barangData[0]['jumlah'], $barangData[0]['jenis_transaksi']);
+
         $sql    = "DELETE FROM transaksi WHERE id = :id";
         $params = [":id" => $id];
 
