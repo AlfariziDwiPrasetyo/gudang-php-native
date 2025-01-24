@@ -9,17 +9,17 @@
     $msg = null;
     if (isset($_POST["submitted"]) == 1 && $_SERVER["REQUEST_METHOD"] == "POST") {
         // Form was submitted, process the update here
-        $id              = $_POST['id'];
-        $kode_transaksi  = $_POST['kode_transaksi'];
-        $kode_barang     = $_POST['kode_barang'];
-        $kode_pemasok    = $_POST['kode_pemasok'];
-        $jumlah          = $_POST['jumlah'];
-        $jenis_transaksi = $_POST['jenis_transaksi'];
-        $tanggal         = $_POST['tanggal'];
-        $created_at      = $_POST['created_at'];
-        $updated_at      = $_POST['updated_at'];
+        $id                   = $_POST['id'];
+        $kode_transaksi       = $_POST['kode_transaksi'];
+        $kode_barang          = $_POST['kode_barang'];
+        $kode_pemasok         = $_POST['kode_pemasok'];
+        $jumlah               = $_POST['jumlah'];
+        $jenis_transaksi      = $_POST['jenis_transaksi'];
+        $tanggal              = $_POST['tanggal'];
+        $jumlah_lama          = $_POST['jumlah_lama'];
+        $jenis_transaksi_lama = $_POST['jenis_transaksi_lama'];
         // Update the database record using your controller's method
-        $dat = $obj->updatetransaksi($id, $kode_transaksi, $kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi, $tanggal, $created_at, $updated_at);
+        $dat = $obj->updatetransaksi($id, $kode_transaksi, $kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi, $tanggal, $jumlah_lama, $jenis_transaksi_lama);
         $msg = getJSON($dat);
     }
     $rows  = $obj->getTransaksi($id);
@@ -43,72 +43,52 @@
         <h2><strong>transaksi</strong> <small>Edit Data</small> </h2>
         </div>
         <hr style="margin-bottom:-2px;"/>
-        <form name="formEdit" method="POST" action="">
+        <form name="formEdit" class="d-flex flex-column gap-3 my-3" method="POST" action="">
             <input type="hidden" class="form-control" name="submitted" value="1"/>
             <?php foreach ($rows as $row): ?>
 
-                    <div class="form-group">
-                        <label>id:</label>
-                        <input type="text" class="form-control" id="id" name="id"
+                        <input type="hidden" class="form-control" id="id" name="id"
                             value="<?php echo $row['id']; ?>" readonly/>
-                    </div>
+
+                        <input type="hidden" class="form-control" id="kode_transaksi" name="kode_transaksi"
+                            value="<?php echo $row['kode_transaksi']; ?>"  readonly/>
+
+                        <input type="hidden" class="form-control" id="kode_barang" name="kode_barang"
+                            value="<?php echo $row['kode_barang']; ?>" readonly />
+
+                        <input type="hidden" class="form-control" id="kode_pemasok" name="kode_pemasok"
+                            value="<?php echo $row['kode_pemasok']; ?>" readonly />
+
+                        <input type="hidden" class="form-control" id="jumlah_lama" name="jumlah_lama"
+                            value="<?php echo $row['jumlah']; ?>"  readonly/>
+
+                        <input type="hidden" class="form-control" id="jenis_transaksi_lama" name="jenis_transaksi_lama"
+                            value="<?php echo $row['jenis_transaksi']; ?>" readonly/>
 
                     <div class="form-group">
-                        <label>kode_transaksi:</label>
-                        <input type="text" class="form-control" id="kode_transaksi" name="kode_transaksi"
-                            value="<?php echo $row['kode_transaksi']; ?>" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>kode_barang:</label>
-                        <input type="text" class="form-control" id="kode_barang" name="kode_barang"
-                            value="<?php echo $row['kode_barang']; ?>" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>kode_pemasok:</label>
-                        <input type="text" class="form-control" id="kode_pemasok" name="kode_pemasok"
-                            value="<?php echo $row['kode_pemasok']; ?>" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>jumlah:</label>
+                        <label>Jumlah:</label>
                         <input type="text" class="form-control" id="jumlah" name="jumlah"
                             value="<?php echo $row['jumlah']; ?>" />
                     </div>
 
                 <div class="form-group">
-                    <label>Jenis_transaksi:</label>
-                    <select id="jenis_transaksi" name="jenis_transaksi" style="width:150px"
-                        class="form-control show-tick" required>
-                    <option value="<?php echo $row['jenis_transaksi']; ?>">
-                    <?php echo $row['jenis_transaksi']; ?></option>
-                        <option value="masuk">masuk</option><option value="keluar">keluar</option>
-                    </select>
+                    <label>Jenis Transaksi:</label>
+                     <input type="text" class="form-control" id="jenis_transaksi" name="jenis_transaksi"
+                            value="<?php echo $row['jenis_transaksi']; ?>" readonly />
                 </div>
 
                     <div class="form-group">
-                        <label>tanggal:</label>
-                        <input type="text" class="form-control" id="tanggal" name="tanggal"
+                        <label>Tanggal:</label>
+                        <input type="date" class="form-control" id="tanggal" name="tanggal"
                             value="<?php echo $row['tanggal']; ?>" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>created_at:</label>
-                        <input type="text" class="form-control" id="created_at" name="created_at"
-                            value="<?php echo $row['created_at']; ?>" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>updated_at:</label>
-                        <input type="text" class="form-control" id="updated_at" name="updated_at"
-                            value="<?php echo $row['updated_at']; ?>" />
                     </div>
 
 
             <?php endforeach; ?>
-            <button class="save btn btn-large btn-info" type="submit">Save</button>
-            <a href="index.php" class="btn btn-large btn-default">Cancel</a>
+            <div class="d-flex gap-3 justify-content-end">
+                <a href="index.php" class="btn btn-large btn-default">Cancel</a>
+                <button class="save btn btn-large btn-info" type="submit">Save</button>
+            </div>
         </form>
 
 <?php

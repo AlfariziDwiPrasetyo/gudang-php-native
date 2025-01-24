@@ -5,14 +5,12 @@
     $msg = null;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Form was submitted, process the update here
-        $nama       = $_POST['nama'];
-        $deskripsi  = $_POST['deskripsi'];
-        $satuan     = $_POST['satuan'];
-        $stok       = $_POST['stok'];
-        $created_at = $_POST['created_at'];
-        $updated_at = $_POST['updated_at'];
+        $nama      = $_POST['nama'];
+        $deskripsi = $_POST['deskripsi'];
+        $satuan    = $_POST['satuan'];
+        $stok      = $_POST['stok'];
         // Insert the database record using your controller's method
-        $dat = $obj->addbarang($nama, $deskripsi, $satuan, $stok, $created_at, $updated_at);
+        $dat = $obj->addbarang($nama, $deskripsi, $satuan, $stok);
         $msg = getJSON($dat);
     }
     $theme = setTheme();

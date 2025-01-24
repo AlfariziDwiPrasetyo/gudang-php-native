@@ -1,20 +1,23 @@
 <?php
     include "../controllers/Transaksi.php";
+    include "../controllers/Barang.php";
+    include "../controllers/Pemasok.php";
     include "../lib/functions.php";
-    $obj = new TransaksiController();
-    $msg = null;
+    $obj       = new TransaksiController();
+    $mybarang  = new BarangController();
+    $mypemasok = new PemasokController();
+    $barang    = $mybarang->getBarangList();
+    $pemasok   = $mypemasok->getPemasokList();
+    $msg       = null;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Form was submitted, process the update here
-        $kode_transaksi  = $_POST['kode_transaksi'];
         $kode_barang     = $_POST['kode_barang'];
         $kode_pemasok    = $_POST['kode_pemasok'];
         $jumlah          = $_POST['jumlah'];
         $jenis_transaksi = $_POST['jenis_transaksi'];
         $tanggal         = $_POST['tanggal'];
-        $created_at      = $_POST['created_at'];
-        $updated_at      = $_POST['updated_at'];
         // Insert the database record using your controller's method
-        $dat = $obj->addtransaksi($kode_transaksi, $kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi, $tanggal, $created_at, $updated_at);
+        $dat = $obj->addtransaksi($kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi, $tanggal);
         $msg = getJSON($dat);
     }
     $theme = setTheme();
@@ -34,29 +37,38 @@
 ?>
         <div class="header icon-and-heading fs-1">
         <i class="zmdi zmdi-view-dashboard zmdi-hc-4x"></i>
-            <h2><strong>transaksi</strong> <small>Add New Data</small> </h2>
+            <h2><strong>Transaksi</strong> <small>Add New Data</small> </h2>
         </div>
         <hr/>
-        <form name="formAdd" method="POST" action="">
+        <form name="formAdd" class="d-flex flex-column gap-2 mt-3" method="POST" action="">
 
-                <div class="form-group">
-                    <label>Kode_transaksi:</label>
-                    <input type="text" class="form-control" name="kode_transaksi"  />
-                </div>
+            <div class="form-group">
+                <label for="barang">Pilih Barang:</label>
+                <select class="form-control mb-3" name="kode_barang" id="kode_barang">
+                    <option>Pilih Barang...</option>
+                    <?php foreach ($barang as $brg): ?>
+                        <option value="<?php echo htmlspecialchars($brg['kode_barang']); ?>">
+                            <?php echo htmlspecialchars($brg['kode_barang']) . ' - ' . htmlspecialchars($brg['nama']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label>Kode_barang:</label>
-                    <input type="text" class="form-control" name="kode_barang"  />
-                </div>
-
-                <div class="form-group">
-                    <label>Kode_pemasok:</label>
-                    <input type="text" class="form-control" name="kode_pemasok"  />
-                </div>
+            <div class="form-group">
+                <label for="barang">Pilih Pemasok:</label>
+                <select class="form-control mb-3" name="kode_pemasok" id="kode_pemasok">
+                    <option value="">Pilih Pemasok...</option>
+                    <?php foreach ($pemasok as $slp): ?>
+                        <option value="<?php echo htmlspecialchars($slp['kode_pemasok']); ?>">
+                            <?php echo htmlspecialchars($slp['kode_pemasok']) . ' - ' . htmlspecialchars($slp['nama']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
                 <div class="form-group">
                     <label>Jumlah:</label>
-                    <input type="text" class="form-control" name="jumlah"  />
+                    <input type="number" class="form-control" name="jumlah"  />
                 </div>
 
                 <div class="form-group">
@@ -67,23 +79,10 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label>Tanggal:</label>
-                    <input type="text" class="form-control" name="tanggal"  />
-                </div>
-
-                <div class="form-group">
-                    <label>Created_at:</label>
-                    <input type="text" class="form-control" name="created_at"  />
-                </div>
-
-                <div class="form-group">
-                    <label>Updated_at:</label>
-                    <input type="text" class="form-control" name="updated_at"  />
-                </div>
-
-            <button class="save btn btn-large btn-info" type="submit">Save</button>
-            <a href="index.php" class="btn btn-large btn-default">Cancel</a>
+            <div class="d-flex flex-row justify-content-end gap-2">
+                <a href="index.php" class="btn btn-large btn-default">Cancel</a>
+                <button class="save btn btn-large btn-primary" type="submit">Save</button>
+            </div>
         </form>
 
 <?php

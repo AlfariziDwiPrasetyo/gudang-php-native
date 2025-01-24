@@ -11,17 +11,15 @@ class BarangModel
         $this->db = new Database();
     }
 
-    public function addBarang($kode_barang, $nama, $deskripsi, $satuan, $stok, $created_at, $updated_at)
+    public function addBarang($kode_barang, $nama, $deskripsi, $satuan, $stok)
     {
-        $sql    = "INSERT INTO barang (kode_barang, nama, deskripsi, satuan, stok, created_at, updated_at) VALUES (:kode_barang, :nama, :deskripsi, :satuan, :stok, :created_at, :updated_at)";
+        $sql    = "INSERT INTO barang (kode_barang, nama, deskripsi, satuan, stok) VALUES (:kode_barang, :nama, :deskripsi, :satuan, :stok)";
         $params = [
             ":kode_barang" => $kode_barang,
             ":nama"        => $nama,
             ":deskripsi"   => $deskripsi,
             ":satuan"      => $satuan,
             ":stok"        => $stok,
-            ":created_at"  => $created_at,
-            ":updated_at"  => $updated_at,
         ];
 
         $result = $this->db->executeQuery($sql, $params);

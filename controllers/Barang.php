@@ -10,10 +10,10 @@ class BarangController
         $this->model = new BarangModel();
     }
 
-    public function addBarang($nama, $deskripsi, $satuan, $stok, $created_at, $updated_at)
+    public function addBarang($nama, $deskripsi, $satuan, $stok)
     {
         $kode_barang = $this->generateRandomKodeBarang();
-        return $this->model->addBarang($kode_barang, $nama, $deskripsi, $satuan, $stok, $created_at, $updated_at);
+        return $this->model->addBarang($kode_barang, $nama, $deskripsi, $satuan, $stok);
     }
 
     private function generateRandomKodeBarang()

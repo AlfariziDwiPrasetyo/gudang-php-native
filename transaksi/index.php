@@ -17,14 +17,12 @@
     <thead>
         <tr>
             <th>id</th>
-<th>kode_transaksi</th>
-<th>kode_barang</th>
-<th>kode_pemasok</th>
-<th>jumlah</th>
-<th>jenis_transaksi</th>
-<th>tanggal</th>
-<th>created_at</th>
-<th>updated_at</th>
+<th>Kode Transaksi</th>
+<th>Kode Barang</th>
+<th>Kode Pemasok</th>
+<th>Jumlah</th>
+<th>Jenis Transaksi</th>
+<th>Tanggal</th>
             <th width="140">Action</th>
         </tr>
     </thead>
@@ -38,8 +36,6 @@
 <td><?php echo $row["jumlah"]; ?></td>
 <td><?php echo $row["jenis_transaksi"]; ?></td>
 <td><?php echo $row["tanggal"]; ?></td>
-<td><?php echo $row["created_at"]; ?></td>
-<td><?php echo $row["updated_at"]; ?></td>
             <td class="text-center" width="200">
                 <a class="btn btn-info btn-sm" href="edit.php?id=<?php echo $row['id']; ?>">
                     <i class="fa fa-pencil"></i>

@@ -1,6 +1,6 @@
 <?php
 
-include_once('../db/database.php');
+include_once '../db/database.php';
 
 class TransaksiModel
 {
@@ -11,101 +11,170 @@ class TransaksiModel
         $this->db = new Database();
     }
 
-    public function addTransaksi($kode_transaksi, $kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi, $tanggal, $created_at, $updated_at)
+    public function addTransaksi($kode_transaksi, $kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi, $tanggal)
     {
-        $sql = "INSERT INTO transaksi (kode_transaksi, kode_barang, kode_pemasok, jumlah, jenis_transaksi, tanggal, created_at, updated_at) VALUES (:kode_transaksi, :kode_barang, :kode_pemasok, :jumlah, :jenis_transaksi, :tanggal, :created_at, :updated_at)";
-        $params = array(
-          ":kode_transaksi" => $kode_transaksi,
-          ":kode_barang" => $kode_barang,
-          ":kode_pemasok" => $kode_pemasok,
-          ":jumlah" => $jumlah,
-          ":jenis_transaksi" => $jenis_transaksi,
-          ":tanggal" => $tanggal,
-          ":created_at" => $created_at,
-          ":updated_at" => $updated_at
-        );
+        $this->updateStokBarangWhenAdd($kode_barang, $jenis_transaksi, $jumlah);
 
-        $result= $this->db->executeQuery($sql, $params);
+        $sql    = "INSERT INTO transaksi (kode_transaksi, kode_barang, kode_pemasok, jumlah, jenis_transaksi, tanggal) VALUES (:kode_transaksi, :kode_barang, :kode_pemasok, :jumlah, :jenis_transaksi, :tanggal)";
+        $params = [
+            ":kode_transaksi"  => $kode_transaksi,
+            ":kode_barang"     => $kode_barang,
+            ":kode_pemasok"    => $kode_pemasok,
+            ":jumlah"          => $jumlah,
+            ":jenis_transaksi" => $jenis_transaksi,
+            ":tanggal"         => $tanggal,
+        ];
+
+        $result = $this->db->executeQuery($sql, $params);
         // Check if the insert was successful
         if ($result) {
-            $response = array(
+            $response = [
                 "success" => true,
-                "message" => "Insert successful"
-            );
+                "message" => "Insert successful",
+            ];
         } else {
-            $response = array(
+            $response = [
                 "success" => false,
-                "message" => "Insert failed"
-            );
+                "message" => "Insert failed",
+            ];
         }
-    
+
         // Return the response as JSON
         return json_encode($response);
+    }
+
+    public function updateStokBarangWhenAdd($kode_barang, $jenis_transaksi, $jumlah)
+    {
+        if ($jenis_transaksi == 'masuk') {
+            $operator = '+';
+        } else {
+            $operator = '-';
+        }
+
+        $sql    = "UPDATE barang SET stok = stok $operator :jumlah WHERE kode_barang = :kode_barang";
+        $params = [
+            ':jumlah'      => $jumlah,
+            ':kode_barang' => $kode_barang,
+        ];
+
+        $result = $this->db->executeQuery($sql, $params);
+
+        if ($result) {
+            $response = [
+                "success" => true,
+                "message" => "Stok updated successfully",
+            ];
+        } else {
+            $response = [
+                "success" => false,
+                "message" => "Failed to update stok",
+            ];
+        }
+
+        return json_encode($response);
+
+    }
+
+    public function updateStokBarangWhenUpdate($kode_barang, $kode_pemasok, $jumlah_baru, $jenis_transaksi_baru, $jumlah_lama, $jenis_transaksi_lama)
+    {
+        $sqlBarang  = "SELECT stok FROM barang WHERE kode_barang = :kode_barang";
+        $dataBarang = $this->db->executeQuery($sqlBarang, [':kode_barang' => $kode_barang])->fetch(PDO::FETCH_ASSOC);
+        $stok       = $dataBarang['stok'];
+
+        $selisih_jumlah = $jumlah_lama - $jumlah_baru;
+        $jumlah         = $selisih_jumlah;
+
+        if ($jenis_transaksi_baru == 'masuk') {
+            $jumlah = ($stok - $jumlah_lama) + $jumlah_baru;
+        } else {
+            $jumlah = ($stok + $jumlah_lama) - $jumlah_baru;
+        }
+
+        $sqlUpdateStok    = "UPDATE barang SET stok = :jumlah WHERE kode_barang = :kode_barang";
+        $resultUpdateStok = $this->db->executeQuery($sqlUpdateStok, [
+            ':jumlah'      => $jumlah,
+            ':kode_barang' => $kode_barang,
+        ]);
+
+        if ($resultUpdateStok) {
+            return json_encode([
+                "success" => true,
+                "message" => "Transaksi updated successfully",
+            ]);
+        } else {
+            return json_encode([
+                "success" => false,
+                "message" => "Failed to update stok barang",
+            ]);
+        }
+
     }
 
     public function getTransaksi($id)
     {
-        $sql = "SELECT * FROM transaksi WHERE id = :id";
-        $params = array(":id" => $id);
+        $sql    = "SELECT * FROM transaksi WHERE id = :id";
+        $params = [":id" => $id];
 
         return $this->db->executeQuery($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function updateTransaksi($id, $kode_transaksi, $kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi, $tanggal, $created_at, $updated_at)
+    public function updateTransaksi($id_transaksi, $kode_transaksi, $kode_barang, $kode_pemasok, $jumlah_baru, $jenis_transaksi_baru, $tanggal_baru, $jumlah_lama, $jenis_transaksi_lama)
     {
-        $sql = "UPDATE transaksi SET kode_transaksi = :kode_transaksi, kode_barang = :kode_barang, kode_pemasok = :kode_pemasok, jumlah = :jumlah, jenis_transaksi = :jenis_transaksi, tanggal = :tanggal, created_at = :created_at, updated_at = :updated_at WHERE id = :id";
-        $params = array(
-          ":kode_transaksi" => $kode_transaksi,
-          ":kode_barang" => $kode_barang,
-          ":kode_pemasok" => $kode_pemasok,
-          ":jumlah" => $jumlah,
-          ":jenis_transaksi" => $jenis_transaksi,
-          ":tanggal" => $tanggal,
-          ":created_at" => $created_at,
-          ":updated_at" => $updated_at,
-          ":id" => $id
-        );
-    
-        // Execute the query
-        $result = $this->db->executeQuery($sql, $params);
-    
-        // Check if the update was successful
+        $this->updateStokBarangWhenUpdate($kode_barang, $kode_pemasok, $jumlah_baru, $jenis_transaksi_baru, $jumlah_lama, $jenis_transaksi_lama);
+
+        $sqlUpdateTransaksi = "UPDATE transaksi SET
+        kode_transaksi = :kode_transaksi,
+        kode_barang = :kode_barang,
+        kode_pemasok = :kode_pemasok,
+        jumlah = :jumlah_baru,
+        jenis_transaksi = :jenis_transaksi_baru,
+        tanggal = :tanggal_baru
+        WHERE id = :id_transaksi";
+
+        $params = [
+            ':kode_transaksi'       => $kode_transaksi,
+            ':kode_barang'          => $kode_barang,
+            ':kode_pemasok'         => $kode_pemasok,
+            ':jumlah_baru'          => $jumlah_baru,
+            ':jenis_transaksi_baru' => $jenis_transaksi_baru,
+            ':tanggal_baru'         => $tanggal_baru,
+            ':id_transaksi'         => $id_transaksi,
+        ];
+
+        $result = $this->db->executeQuery($sqlUpdateTransaksi, $params);
+
         if ($result) {
-            $response = array(
+            return json_encode([
                 "success" => true,
-                "message" => "Update successful"
-            );
+                "message" => "Transaksi updated successfully",
+            ]);
         } else {
-            $response = array(
+            return json_encode([
                 "success" => false,
-                "message" => "Update failed"
-            );
+                "message" => "Failed to update transaksi",
+            ]);
         }
-    
-        // Return the response as JSON
-        return json_encode($response);
     }
-    
 
     public function deleteTransaksi($id)
     {
-        $sql = "DELETE FROM transaksi WHERE id = :id";
-        $params = array(":id" => $id);
+        $sql    = "DELETE FROM transaksi WHERE id = :id";
+        $params = [":id" => $id];
 
         $result = $this->db->executeQuery($sql, $params);
         // Check if the delete was successful
         if ($result) {
-            $response = array(
+            $response = [
                 "success" => true,
-                "message" => "Delete successful"
-            );
+                "message" => "Delete successful",
+            ];
         } else {
-            $response = array(
+            $response = [
                 "success" => false,
-                "message" => "Delete failed"
-            );
+                "message" => "Delete failed",
+            ];
         }
-    
+
         // Return the response as JSON
         return json_encode($response);
     }
@@ -118,10 +187,19 @@ class TransaksiModel
 
     public function getDataCombo()
     {
-        $sql = 'SELECT * FROM transaksi';
-        $data = array();
+        $sql  = 'SELECT * FROM transaksi';
+        $data = [];
         $data = $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         header('Content-Type: application/json');
         echo json_encode($data);
+    }
+
+    public function isKodeTransaksiExists($kode_transaksi)
+    {
+        $query = "SELECT COUNT(*) as count FROM transaksi WHERE kode_transaksi = '$kode_transaksi'";
+
+        $result = $this->db->query($query)->fetch(PDO::FETCH_ASSOC);
+
+        return $result['count'] > 0;
     }
 }
