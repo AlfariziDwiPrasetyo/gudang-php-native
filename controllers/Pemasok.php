@@ -10,10 +10,10 @@ class PemasokController
         $this->model = new PemasokModel();
     }
 
-    public function addPemasok($nama, $alamat, $kontak)
+    public function addPemasok($nama, $alamat, $kontak, $foto)
     {
         $kode_pemasok = $this->generateRandomKodePemasok();
-        return $this->model->addPemasok($kode_pemasok, $nama, $alamat, $kontak);
+        return $this->model->addPemasok($kode_pemasok, $nama, $alamat, $kontak, $foto);
     }
 
     private function generateRandomKodePemasok()
@@ -43,9 +43,9 @@ class PemasokController
         return $val;
     }
 
-    public function updatePemasok($id, $kode_pemasok, $nama, $alamat, $kontak, $created_at)
+    public function updatePemasok($id, $kode_pemasok, $nama, $alamat, $kontak, $foto, $created_at)
     {
-        return $this->model->updatePemasok($id, $kode_pemasok, $nama, $alamat, $kontak, $created_at);
+        return $this->model->updatePemasok($id, $kode_pemasok, $nama, $alamat, $kontak, $foto, $created_at);
     }
 
     public function deletePemasok($id)

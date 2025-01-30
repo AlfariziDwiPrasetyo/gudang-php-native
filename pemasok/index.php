@@ -17,10 +17,11 @@
     <thead>
         <tr>
             <th>id</th>
-<th>Kode Pemasok</th>
-<th>Nama</th>
-<th>Alamat</th>
-<th>Kontak</th>
+            <th>Kode Pemasok</th>
+            <th>Nama</th>
+            <th>Alamat</th>
+            <th>Kontak</th>
+            <th>Foto</th>
             <th width="140">Action</th>
         </tr>
     </thead>
@@ -28,10 +29,17 @@
         <?php foreach ($rows as $row) {?>
         <tr>
             <td><?php echo $row["id"]; ?></td>
-<td><?php echo $row["kode_pemasok"]; ?></td>
-<td><?php echo $row["nama"]; ?></td>
-<td><?php echo $row["alamat"]; ?></td>
-<td><?php echo $row["kontak"]; ?></td>
+            <td><?php echo $row["kode_pemasok"]; ?></td>
+            <td><?php echo $row["nama"]; ?></td>
+            <td><?php echo $row["alamat"]; ?></td>
+            <td><?php echo $row["kontak"]; ?></td>
+            <td>
+                <?php if (!empty($row["foto"])) { ?>
+                    <img src="<?php echo $row["foto"]; ?>" alt="Foto" width="50" height="50">
+                <?php } else { ?>
+                    No image
+                <?php } ?>
+            </td>
             <td class="text-center" width="200">
                 <a class="btn btn-info btn-sm" href="edit.php?id=<?php echo $row['id']; ?>">
                     <i class="fa fa-pencil"></i>
