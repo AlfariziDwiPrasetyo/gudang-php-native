@@ -15,7 +15,7 @@
     <div class="my-3 d-flex flex-row justify-content-end">
         <a style="margin:10px 0px;" class="btn btn-large btn-outline-success" href="add.php"><i class="fa fa-plus"></i>Add Data</a>
     </div>
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>id</th>
