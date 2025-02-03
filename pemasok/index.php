@@ -12,8 +12,10 @@
 <h2><strong>Pemasok</strong> <small>List All Data</small> </h2>
 </div>
 <hr style="margin-bottom:-2px;"/>
-<a style="margin:10px 0px;" class="btn btn-large btn-info" href="add.php"><i class="fa fa-plus"></i> Create New Data</a>
-<table class="table table-bordered table-striped">
+    <div class="my-3 d-flex flex-row justify-content-end">
+        <a style="margin:10px 0px;" class="btn btn-large btn-outline-success" href="add.php"><i class="fa fa-plus"></i>Add Data</a>
+    </div>
+<table class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
             <th>id</th>
@@ -43,13 +45,13 @@
                     ?>
             </td>
             <td class="text-center" width="200">
-                <a class="btn btn-info btn-sm" href="edit.php?id=<?php echo $row['id']; ?>">
+                <a class="btn btn-outline-info btn-sm" href="edit.php?id=<?php echo $row['id']; ?>">
                     <i class="fa fa-pencil"></i>
                 </a>
-                <a class="btn btn-success btn-sm" href="upload.php?id=<?php echo $row["id"]; ?>">
+                <a class="btn btn-outline-warning btn-sm" href="upload.php?id=<?php echo $row["id"]; ?>">
                     <i class="fa fa-camera"></i>
                 </a>
-                <a class="btn btn-danger btn-sm" href="delete.php?id=<?php echo $row['id']; ?>">
+                <a class="btn btn-outline-danger btn-sm" href="delete.php?id=<?php echo $row['id']; ?>">
                     <i class="fa fa-trash"></i>
                 </a>
             </td>

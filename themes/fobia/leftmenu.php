@@ -4,10 +4,10 @@
       <div class="sidebar-header">
         <div>
           <!-- <img src="../themes/fobia/assets/images/logo-icon-2.png" class="logo-icon" alt="logo icon"> -->
-           <ion-icon name="logo-buffer" size="large"></ion-icon>
+           <ion-icon name="logo-dropbox" class="text-primary" size="large"></ion-icon>
         </div>
         <div>
-          <h4 class="logo-text fw-bold text-muted">Gudang</h4>
+          <h4 class="logo-text fw-bold text-primary">Gudang</h4>
         </div>
       </div>
       <!--navigation-->
