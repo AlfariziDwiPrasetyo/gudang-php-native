@@ -13,6 +13,7 @@
 </div>
 <hr style="margin-bottom:-2px;"/>
 <a style="margin:10px 0px;" class="btn btn-large btn-info" href="add.php"><i class="fa fa-plus"></i> Create New Data</a>
+<a style="margin:10px 0px;" class="btn btn-large btn-danger" href="cetak.php"><i class="fa fa-print"></i> Print Data</a>
 <table class="table table-bordered table-striped">
     <thead>
         <tr>

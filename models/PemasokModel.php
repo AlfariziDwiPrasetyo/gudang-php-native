@@ -11,14 +11,15 @@ class PemasokModel
         $this->db = new Database();
     }
 
-    public function addPemasok($kode_pemasok, $nama, $alamat, $kontak)
+    public function addPemasok($kode_pemasok, $nama, $alamat, $kontak, $foto)
     {
-        $sql    = "INSERT INTO pemasok (kode_pemasok, nama, alamat, kontak) VALUES (:kode_pemasok, :nama, :alamat, :kontak)";
+        $sql    = "INSERT INTO pemasok (kode_pemasok, nama, alamat, kontak, foto) VALUES (:kode_pemasok, :nama, :alamat, :kontak, :foto)";
         $params = [
             ":kode_pemasok" => $kode_pemasok,
             ":nama"         => $nama,
             ":alamat"       => $alamat,
             ":kontak"       => $kontak,
+            ":foto"         => $foto,
         ];
 
         $result = $this->db->executeQuery($sql, $params);
@@ -47,16 +48,45 @@ class PemasokModel
         return $this->db->executeQuery($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function updatePemasok($id, $kode_pemasok, $nama, $alamat, $kontak, $created_at)
+    public function updatePemasok($id, $kode_pemasok, $nama, $alamat, $kontak, $foto, $created_at)
     {
-        $sql    = "UPDATE pemasok SET kode_pemasok = :kode_pemasok, nama = :nama, alamat = :alamat, kontak = :kontak, created_at = :created_at  WHERE id = :id";
+        $sql    = "UPDATE pemasok SET kode_pemasok = :kode_pemasok, nama = :nama, alamat = :alamat, kontak = :kontak, :foto = foto, created_at = :created_at  WHERE id = :id";
         $params = [
             ":kode_pemasok" => $kode_pemasok,
             ":nama"         => $nama,
             ":alamat"       => $alamat,
             ":kontak"       => $kontak,
+            ":foto"         => $foto,
             ":created_at"   => $created_at,
             ":id"           => $id,
+        ];
+
+        // Execute the query
+        $result = $this->db->executeQuery($sql, $params);
+
+        // Check if the update was successful
+        if ($result) {
+            $response = [
+                "success" => true,
+                "message" => "Update successful",
+            ];
+        } else {
+            $response = [
+                "success" => false,
+                "message" => "Update failed",
+            ];
+        }
+
+        // Return the response as JSON
+        return json_encode($response);
+    }
+
+    public function updatefotoPemasok($id, $foto)
+    {
+        $sql    = "UPDATE pemasok SET foto = :foto WHERE id = :id";
+        $params = [
+            ":foto" => $foto,
+            ":id"   => $id,
         ];
 
         // Execute the query

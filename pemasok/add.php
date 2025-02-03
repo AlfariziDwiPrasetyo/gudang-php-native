@@ -9,8 +9,9 @@
         $nama         = $_POST['nama'];
         $alamat       = $_POST['alamat'];
         $kontak       = $_POST['kontak'];
+        $foto         = $_POST['foto'];
         // Insert the database record using your controller's method
-        $dat = $obj->addpemasok($nama, $alamat, $kontak);
+        $dat = $obj->addpemasok($nama, $alamat, $kontak, $foto);
         $msg = getJSON($dat);
     }
     $theme = setTheme();
@@ -33,7 +34,7 @@
             <h2><strong>Pemasok</strong> <small>Add New Data</small> </h2>
         </div>
         <hr/>
-        <form class="d-flex flex-column gap-3" name="formAdd" method="POST" action="">
+        <form class="d-flex flex-column gap-3" name="formAdd" method="POST" action="" enctype="multipart/form-data">
 
                     <input type="hidden" class="form-control" name="kode_pemasok"  />
 
@@ -50,6 +51,11 @@
                 <div class="form-group">
                     <label>Kontak:</label>
                     <input type="text" class="form-control" name="kontak"  />
+                </div>
+
+                <div class="form-group">
+                    <label>Photo Profile:</label>
+                    <input type="file" class="form-control" name="foto"  />
                 </div>
 
                 <div class="mt-3 d-flex flex-row justify-content-end">
