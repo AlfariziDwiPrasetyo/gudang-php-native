@@ -59,6 +59,11 @@ class TransaksiController
         return $this->model->getTransaksiList();
     }
 
+    public function getTotalTransaksi()
+    {
+        return $this->model->getTotalTransaksi();
+    }
+
     public function getDataCombo()
     {
         return $this->model->getDataCombo();

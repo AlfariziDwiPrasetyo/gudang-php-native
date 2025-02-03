@@ -63,6 +63,11 @@ class BarangController
         return $this->model->getBarangList();
     }
 
+    public function getTotalBarang()
+    {
+        return $this->model->getTotalBarang();
+    }
+
     public function getDataCombo()
     {
         return $this->model->getDataCombo();

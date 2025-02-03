@@ -220,6 +220,13 @@ class TransaksiModel
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getTotalTransaksi()
+    {
+        $sql = "SELECT COUNT(*) as total FROM transaksi";
+
+        return $this->db->executeQuery($sql)->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+
     public function getDataCombo()
     {
         $sql  = 'SELECT * FROM transaksi';
