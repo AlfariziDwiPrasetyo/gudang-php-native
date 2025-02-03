@@ -7,7 +7,7 @@ function getJSON($jsonResponse)
 
     // Check if the JSON decoding was successful
     if ($data !== null) {
-        // Access the values
+                                   // Access the values
         $success = $data->success; // true
         $message = $data->message; // "Update successful"
 
@@ -44,10 +44,10 @@ function MenuList()
 {
     // Ensure the directory path is correct
     $directory = controller_url();
-    $mod_array = array('Login', 'Pinjamdetail', 'Users');  // Modul yang tidak dimasukkan ke Leftmenu
+    $mod_array = ['Login', 'Pinjamdetail', 'Users']; // Modul yang tidak dimasukkan ke Leftmenu
 
     // Validate directory path
-    if (!is_dir($directory)) {
+    if (! is_dir($directory)) {
         error_log("Invalid directory path: " . $directory);
         return [];
     }
@@ -67,7 +67,7 @@ function MenuList()
 
     // Filter out unwanted modules
     $filenames = array_filter($filenames, function ($mod) use ($mod_array) {
-        return !in_array($mod, $mod_array);
+        return ! in_array($mod, $mod_array);
     });
 
     return array_values($filenames); // Re-index array after filtering
@@ -93,43 +93,43 @@ function setTheme()
 
 function getHeader($theme_name)
 {
-    include("../themes/" . $theme_name . "/header.php");
-    include("../themes/" . $theme_name . "/leftmenu.php");
-    include("../themes/" . $theme_name . "/topnav.php");
-    include("../themes/" . $theme_name . "/upper_block.php");
+    include "../themes/" . $theme_name . "/header.php";
+    include "../themes/" . $theme_name . "/leftmenu.php";
+    include "../themes/" . $theme_name . "/topnav.php";
+    include "../themes/" . $theme_name . "/upper_block.php";
 }
 
 function getFooter($theme_name, $extra)
 {
-    include("../themes/" . $theme_name . "/lower_block.php");
+    include "../themes/" . $theme_name . "/lower_block.php";
     echo $extra;
-    include("../themes/" . $theme_name . "/footer.php");
+    include "../themes/" . $theme_name . "/footer.php";
 
     echo '</body>
     </html>';
 }
 function getHeaderLogin($theme_name)
 {
-    include("themes/" . $theme_name . "/headerlogin.php");
-    include("themes/" . $theme_name . "/leftmenulogin.php");
-    include("themes/" . $theme_name . "/topnav.php");
-    include("themes/" . $theme_name . "/upper_block.php");
+    include "themes/" . $theme_name . "/headerlogin.php";
+    include "themes/" . $theme_name . "/leftmenulogin.php";
+    include "themes/" . $theme_name . "/topnav.php";
+    include "themes/" . $theme_name . "/upper_block.php";
 }
 
 function getFooterLogin($theme_name, $extra)
 {
-    include("themes/" . $theme_name . "/lower_block.php");
+    include "themes/" . $theme_name . "/lower_block.php";
     echo $extra;
-    include("themes/" . $theme_name . "/footerlogin.php");
+    include "themes/" . $theme_name . "/footerlogin.php";
 
     echo '</body>
     </html>';
 }
 function getFilename()
 {
-    $host = $_SERVER["HTTP_HOST"];
-    $uri = $_SERVER["REQUEST_URI"];
-    $url = "http://" . $host . $uri;
+    $host       = $_SERVER["HTTP_HOST"];
+    $uri        = $_SERVER["REQUEST_URI"];
+    $url        = "http://" . $host . $uri;
     $parsed_url = parse_url($url);
 
     // Get the path from the parsed URL
@@ -159,4 +159,56 @@ function generateRandomString($length = 7)
     return $randomString;
 }
 
-?>
+function createThumbnail($sourcePath, $targetPath, $maxWidth = 100, $maxHeight = 100)
+{
+    // Get image info
+    list($width, $height, $type) = getimagesize($sourcePath);
+
+    // Calculate new dimensions
+    $ratio      = min($maxWidth / $width, $maxHeight / $height);
+    $new_width  = round($width * $ratio);
+    $new_height = round($height * $ratio);
+
+    // Create new image
+    $thumb = imagecreatetruecolor($new_width, $new_height);
+
+    // Load source image based on file type
+    switch ($type) {
+        case IMAGETYPE_JPEG:
+            $source = imagecreatefromjpeg($sourcePath);
+            break;
+        case IMAGETYPE_PNG:
+            $source = imagecreatefrompng($sourcePath);
+            // Preserve transparency
+            imagealphablending($thumb, false);
+            imagesavealpha($thumb, true);
+            break;
+        case IMAGETYPE_GIF:
+            $source = imagecreatefromgif($sourcePath);
+            break;
+        default:
+            return false;
+    }
+
+    // Resize image
+    imagecopyresampled($thumb, $source, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+    // Save thumbnail based on original file type
+    switch ($type) {
+        case IMAGETYPE_JPEG:
+            imagejpeg($thumb, $targetPath, 90);
+            break;
+        case IMAGETYPE_PNG:
+            imagepng($thumb, $targetPath, 9);
+            break;
+        case IMAGETYPE_GIF:
+            imagegif($thumb, $targetPath);
+            break;
+    }
+
+    // Free up memory
+    imagedestroy($thumb);
+    imagedestroy($source);
+
+    return true;
+}

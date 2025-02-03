@@ -34,15 +34,20 @@
             <td><?php echo $row["alamat"]; ?></td>
             <td><?php echo $row["kontak"]; ?></td>
             <td>
-                <?php if (!empty($row["foto"])) { ?>
-                    <img src="<?php echo $row["foto"]; ?>" alt="Foto" width="50" height="50">
-                <?php } else { ?>
-                    No image
-                <?php } ?>
+                <?php
+                    if ($row["foto"] != "") {
+                        echo '<img src="../images/thumbs/' . $row["foto"] . '" width="100" height="100">';
+                    } else {
+                        echo '&nbsp;';
+                    }
+                    ?>
             </td>
             <td class="text-center" width="200">
                 <a class="btn btn-info btn-sm" href="edit.php?id=<?php echo $row['id']; ?>">
                     <i class="fa fa-pencil"></i>
+                </a>
+                <a class="btn btn-success btn-sm" href="upload.php?id=<?php echo $row["id"]; ?>">
+                    <i class="fa fa-camera"></i>
                 </a>
                 <a class="btn btn-danger btn-sm" href="delete.php?id=<?php echo $row['id']; ?>">
                     <i class="fa fa-trash"></i>

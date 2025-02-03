@@ -82,6 +82,34 @@ class BarangModel
         return json_encode($response);
     }
 
+    public function updatefotoBarang($id, $foto)
+    {
+        $sql    = "UPDATE barang SET foto = :foto WHERE id = :id";
+        $params = [
+            ":foto" => $foto,
+            ":id"   => $id,
+        ];
+
+        // Execute the query
+        $result = $this->db->executeQuery($sql, $params);
+
+        // Check if the update was successful
+        if ($result) {
+            $response = [
+                "success" => true,
+                "message" => "Update successful",
+            ];
+        } else {
+            $response = [
+                "success" => false,
+                "message" => "Update failed",
+            ];
+        }
+
+        // Return the response as JSON
+        return json_encode($response);
+    }
+
     public function deleteBarang($id)
     {
         $sql    = "DELETE FROM barang WHERE id = :id";

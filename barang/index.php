@@ -17,12 +17,11 @@
     <thead>
         <tr>
             <th>id</th>
-<th>Kode Barang</th>
-<th>Nama</th>
-<th>Satuan</th>
-<th>Stok</th>
-<th>Tanggal Masuk</th>
-<th>Tanggal Diperbarui</th>
+            <th>Kode Barang</th>
+            <th>Nama</th>
+            <th>Satuan</th>
+            <th>Stok</th>
+            <th>Foto</th>
             <th width="140">Action</th>
         </tr>
     </thead>
@@ -30,15 +29,25 @@
         <?php foreach ($rows as $row) {?>
         <tr>
             <td><?php echo $row["id"]; ?></td>
-<td><?php echo $row["kode_barang"]; ?></td>
-<td><?php echo $row["nama"]; ?></td>
-<td><?php echo $row["satuan"]; ?></td>
-<td><?php echo $row["stok"]; ?></td>
-<td><?php echo $row["created_at"]; ?></td>
-<td><?php echo $row["updated_at"]; ?></td>
+            <td><?php echo $row["kode_barang"]; ?></td>
+            <td><?php echo $row["nama"]; ?></td>
+            <td><?php echo $row["satuan"]; ?></td>
+            <td><?php echo $row["stok"]; ?></td>
+            <td>
+            <?php
+                if ($row["foto"] != "") {
+                    echo '<img src="../images/thumbs/' . $row["foto"] . '" width="100" height="100">';
+                } else {
+                    echo '&nbsp;';
+                }
+                ?>
+            </td>
             <td class="text-center" width="200">
                 <a class="btn btn-info btn-sm" href="edit.php?id=<?php echo $row['id']; ?>">
                     <i class="fa fa-pencil"></i>
+                </a>
+                <a class="btn btn-success btn-sm" href="upload.php?id=<?php echo $row["id"]; ?>">
+                    <i class="fa fa-camera"></i>
                 </a>
                 <a class="btn btn-danger btn-sm" href="delete.php?id=<?php echo $row['id']; ?>">
                     <i class="fa fa-trash"></i>

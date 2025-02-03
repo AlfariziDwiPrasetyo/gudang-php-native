@@ -48,6 +48,11 @@ class BarangController
         return $this->model->updateBarang($id, $kode_barang, $nama, $deskripsi, $satuan, $stok, $created_at, $updated_at);
     }
 
+    public function updatefotoBarang($id, $foto)
+    {
+        return $this->model->updatefotoBarang($id, $foto);
+    }
+
     public function deleteBarang($id)
     {
         return $this->model->deleteBarang($id);

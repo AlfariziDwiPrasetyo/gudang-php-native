@@ -19,7 +19,7 @@ class PemasokModel
             ":nama"         => $nama,
             ":alamat"       => $alamat,
             ":kontak"       => $kontak,
-            ":foto"       => $foto,
+            ":foto"         => $foto,
         ];
 
         $result = $this->db->executeQuery($sql, $params);
@@ -59,6 +59,34 @@ class PemasokModel
             ":foto"         => $foto,
             ":created_at"   => $created_at,
             ":id"           => $id,
+        ];
+
+        // Execute the query
+        $result = $this->db->executeQuery($sql, $params);
+
+        // Check if the update was successful
+        if ($result) {
+            $response = [
+                "success" => true,
+                "message" => "Update successful",
+            ];
+        } else {
+            $response = [
+                "success" => false,
+                "message" => "Update failed",
+            ];
+        }
+
+        // Return the response as JSON
+        return json_encode($response);
+    }
+
+    public function updatefotoPemasok($id, $foto)
+    {
+        $sql    = "UPDATE pemasok SET foto = :foto WHERE id = :id";
+        $params = [
+            ":foto" => $foto,
+            ":id"   => $id,
         ];
 
         // Execute the query

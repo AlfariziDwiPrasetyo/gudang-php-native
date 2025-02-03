@@ -48,6 +48,11 @@ class PemasokController
         return $this->model->updatePemasok($id, $kode_pemasok, $nama, $alamat, $kontak, $foto, $created_at);
     }
 
+    public function updatefotoPemasok($id, $foto)
+    {
+        return $this->model->updatefotoPemasok($id, $foto);
+    }
+
     public function deletePemasok($id)
     {
         return $this->model->deletePemasok($id);
