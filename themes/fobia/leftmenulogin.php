@@ -18,7 +18,7 @@
                 <ion-icon name="log-out-outline"></ion-icon>
               </div>
               <div class="menu-title">Login</div>
-            </a>
+            </a>`
           </li>
 
       </ul>
