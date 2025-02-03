@@ -11,18 +11,17 @@ class TransaksiModel
         $this->db = new Database();
     }
 
-    public function addTransaksi($kode_transaksi, $kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi, $tanggal)
+    public function addTransaksi($kode_transaksi, $kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi)
     {
         $this->updateStokBarangWhenAdd($kode_barang, $jenis_transaksi, $jumlah);
 
-        $sql    = "INSERT INTO transaksi (kode_transaksi, kode_barang, kode_pemasok, jumlah, jenis_transaksi, tanggal) VALUES (:kode_transaksi, :kode_barang, :kode_pemasok, :jumlah, :jenis_transaksi, :tanggal)";
+        $sql    = "INSERT INTO transaksi (kode_transaksi, kode_barang, kode_pemasok, jumlah, jenis_transaksi) VALUES (:kode_transaksi, :kode_barang, :kode_pemasok, :jumlah, :jenis_transaksi)";
         $params = [
             ":kode_transaksi"  => $kode_transaksi,
             ":kode_barang"     => $kode_barang,
             ":kode_pemasok"    => $kode_pemasok,
             ":jumlah"          => $jumlah,
             ":jenis_transaksi" => $jenis_transaksi,
-            ":tanggal"         => $tanggal,
         ];
 
         $result = $this->db->executeQuery($sql, $params);
