@@ -3,7 +3,7 @@
         <div class="toggle-icon">
           <ion-icon name="menu-outline"></ion-icon>
         </div>
-       
+
         <form class="searchbar">
           <div class="position-absolute top-50 translate-middle-y search-icon ms-3">
             <ion-icon name="search-outline"></ion-icon>
@@ -16,13 +16,13 @@
         <div class="top-navbar-right ms-auto">
 
           <ul class="navbar-nav align-items-center">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link mobile-search-button" href="javascript:;">
                 <div class="">
                   <ion-icon name="search-outline"></ion-icon>
                 </div>
               </a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link dark-mode-icon" href="javascript:;">
                 <div class="mode-icon">
@@ -30,15 +30,15 @@
                 </div>
               </a>
             </li>
-            <li class="nav-item dropdown dropdown-large dropdown-apps">
+            <!-- <li class="nav-item dropdown dropdown-large dropdown-apps">
               <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
                 <div class="">
                   <ion-icon name="apps-outline"></ion-icon>
                 </div>
               </a>
-              
-            </li>
-            <li class="nav-item dropdown dropdown-large">
+
+            </li> -->
+            <!-- <li class="nav-item dropdown dropdown-large">
               <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
                 <div class="position-relative">
                   <span class="notify-badge">?</span>
@@ -53,14 +53,14 @@
                   </div>
                 </a>
                 <div class="header-notifications-list">
-                  
+
                 </div>
                 <a href="javascript:;">
                   <div class="text-center msg-footer">View All Notifications</div>
                 </a>
               </div>
-            </li>
-            
+            </li> -->
+
 
           </ul>
 
