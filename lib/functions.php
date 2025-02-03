@@ -111,6 +111,13 @@ function getFooter($theme_name, $extra)
 function getHeaderLogin($theme_name)
 {
     include "themes/" . $theme_name . "/headerlogin.php";
+    // include "themes/" . $theme_name . "/leftmenulogin.php";
+    // include "themes/" . $theme_name . "/topnav.php";
+    // include "themes/" . $theme_name . "/upper_block.php";
+}
+function getHeaderRegister($theme_name)
+{
+    include "themes/" . $theme_name . "/headerlogin.php";
     include "themes/" . $theme_name . "/leftmenulogin.php";
     include "themes/" . $theme_name . "/topnav.php";
     include "themes/" . $theme_name . "/upper_block.php";
