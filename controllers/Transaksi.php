@@ -10,11 +10,11 @@ class TransaksiController
         $this->model = new TransaksiModel();
     }
 
-    public function addTransaksi($kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi, $tanggal)
+    public function addTransaksi($kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi)
     {
         $kode_transaksi = $this->generateRandomKodeTransaksi();
 
-        return $this->model->addTransaksi($kode_transaksi, $kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi, $tanggal);
+        return $this->model->addTransaksi($kode_transaksi, $kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi);
     }
 
     private function generateRandomKodeTransaksi()
@@ -57,6 +57,11 @@ class TransaksiController
     public function getTransaksiList()
     {
         return $this->model->getTransaksiList();
+    }
+
+    public function getTotalTransaksi()
+    {
+        return $this->model->getTotalTransaksi();
     }
 
     public function getDataCombo()

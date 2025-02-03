@@ -48,6 +48,13 @@ class BarangModel
         return $this->db->executeQuery($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getTotalBarang()
+    {
+        $sql = "SELECT COUNT(*) as total FROM barang";
+
+        return $this->db->executeQuery($sql)->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+
     public function updateBarang($id, $kode_barang, $nama, $deskripsi, $satuan, $stok, $created_at, $updated_at)
     {
         $sql    = "UPDATE barang SET kode_barang = :kode_barang, nama = :nama, deskripsi = :deskripsi, satuan = :satuan, stok = :stok, created_at = :created_at, updated_at = :updated_at WHERE id = :id";

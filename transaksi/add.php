@@ -15,9 +15,8 @@
         $kode_pemasok    = $_POST['kode_pemasok'];
         $jumlah          = $_POST['jumlah'];
         $jenis_transaksi = $_POST['jenis_transaksi'];
-        $tanggal         = $_POST['tanggal'];
         // Insert the database record using your controller's method
-        $dat = $obj->addtransaksi($kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi, $tanggal);
+        $dat = $obj->addtransaksi($kode_barang, $kode_pemasok, $jumlah, $jenis_transaksi);
         $msg = getJSON($dat);
     }
     $theme = setTheme();

@@ -11,6 +11,8 @@
     <!-- loader-->
 	  <link href="../themes/fobia/assets/css/pace.min.css" rel="stylesheet" />
 	  <script src="../themes/fobia/assets/js/pace.min.js"></script>
+	  <script src="../themes/fobia/assets/plugins/chartjs/chart.min.js"></script>
+	  <script src="../themes/fobia/assets/plugins/chartjs/custom-script.js"></script>
 
     <!--plugins-->
     <link href="../themes/fobia/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />

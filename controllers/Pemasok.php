@@ -34,6 +34,11 @@ class PemasokController
         return $this->model->getPemasok($id);
     }
 
+    public function getTotalPemasok()
+    {
+        return $this->model->getTotalPemasok();
+    }
+
     public function Show($id)
     {
         $rows = $this->model->getPemasok($id);
