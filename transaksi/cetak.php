@@ -271,6 +271,8 @@ $html ='<!DOCTYPE html>
 		<td style="border-top: 1px ridge #000000; border-bottom: 1px ridge #000000; border-left: 1px ridge #000000; border-right: 1px ridge #000000" align="center" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" size=4><br>'.$row["jumlah"].'</font></td>
 		<td style="border-top: 1px ridge #000000; border-bottom: 1px ridge #000000; border-left: 1px ridge #000000; border-right: 1px ridge #000000" align="center" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" size=4><br>'.$row["jenis_transaksi"].'</font></td>
 		<td style="border-top: 1px ridge #000000; border-bottom: 1px ridge #000000; border-left: 1px ridge #000000; border-right: 1px ridge #000000" align="center" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" size=4><br>'.$row["tanggal"].'</font></td>
+		<td style="border-top: 1px ridge #000000; border-bottom: 1px ridge #000000; border-left: 1px ridge #000000; border-right: 1px ridge #000000" align="center" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><font face="Arial" size=4><br><img src="'.$row["foto"].'" alt="images"></font></td>
+
 		<td style="border-top: 1px ridge #000000; border-bottom: 1px ridge #000000; border-left: 1px ridge #000000; border-right: 1px ridge #000000" align="left" data-sheets-value="{ &quot;1&quot;: 2, &quot;2&quot;: &quot;&quot;}"><br></td>
 	</tr>';
 	}
