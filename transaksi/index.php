@@ -8,28 +8,28 @@
 ?>
 
 <div class="header icon-and-heading">
-<i class="zmdi zmdi-view-dashboard zmdi-hc-4x custom-icon"></i>
-<h2><strong>Transaksi</strong> <small>List All Data</small> </h2>
-</div>
-<hr style="margin-bottom:-2px;"/>
-    <div class="my-3 gap-3 d-flex flex-row justify-content-end">
-        <a style="margin:10px 0px;" class="btn btn-large btn-outline-success" href="add.php"><i class="fa fa-plus"></i>Add Data</a>
-        <a style="margin:10px 0px;" class="btn btn-large btn-outline-secondary" href="cetakfinal.php"><i class="fa fa-print"></i> Print Data</a>
+    <i class="zmdi zmdi-view-dashboard zmdi-hc-4x custom-icon"></i>
+    <h2><strong>Transaksi</strong> <small>List All Data</small> </h2>
     </div>
-<table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th>id</th>
-<th>Kode Transaksi</th>
-<th>Kode Barang</th>
-<th>Kode Pemasok</th>
-<th>Jumlah</th>
-<th>Jenis Transaksi</th>
-<th>Tanggal</th>
-            <th width="140">Action</th>
-        </tr>
-    </thead>
-    <tbody>
+    <hr style="margin-bottom:-2px;"/>
+        <div class="my-3 gap-3 d-flex flex-row justify-content-end">
+            <a style="margin:10px 0px;" class="btn btn-large btn-outline-success" href="add.php"><i class="fa fa-plus"></i>Add Data</a>
+            <a style="margin:10px 0px;" class="btn btn-large btn-outline-secondary" href="cetakfinal.php"><i class="fa fa-print"></i> Print Data</a>
+        </div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Kode Transaksi</th>
+                <th>Kode Barang</th>
+                <th>Kode Pemasok</th>
+                <th>Jumlah</th>
+                <th>Jenis Transaksi</th>
+                <th>Tanggal</th>
+                <th width="140">Action</th>
+            </tr>
+        </thead>
+        <tbody>
         <?php foreach ($rows as $row) {?>
         <tr>
             <td><?php echo $row["id"]; ?></td>
