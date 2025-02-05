@@ -59,6 +59,11 @@ class TransaksiController
         return $this->model->getTransaksiList();
     }
 
+    public function getTransaksiLast30Days()
+    {
+        return $this->model->getTransaksiLast30Days();
+    }
+
     public function getTotalTransaksi()
     {
         return $this->model->getTotalTransaksi();
