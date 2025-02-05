@@ -149,6 +149,17 @@ class TransaksiModel
         return $this->db->executeQuery($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getTransaksiLast30Days()
+    {
+        $sql = "SELECT DATE(tanggal) AS hari, COUNT(*) AS total_transaksi
+                FROM transaksi
+                WHERE tanggal >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+                GROUP BY hari
+                ORDER BY hari ASC";
+
+        return $this->db->executeQuery($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function updateTransaksi($id_transaksi, $kode_transaksi, $kode_barang, $kode_pemasok, $jumlah_baru, $jenis_transaksi_baru, $tanggal_baru, $jumlah_lama, $jenis_transaksi_lama)
     {
         $this->updateStokBarangWhenUpdate($kode_barang, $kode_pemasok, $jumlah_baru, $jenis_transaksi_baru, $jumlah_lama, $jenis_transaksi_lama);
