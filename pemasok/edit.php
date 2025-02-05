@@ -14,9 +14,8 @@
         $nama         = $_POST['nama'];
         $alamat       = $_POST['alamat'];
         $kontak       = $_POST['kontak'];
-        $updated_at   = $_POST['created_at'];
         // Update the database record using your controller's method
-        $dat = $obj->updatepemasok($id, $kode_pemasok, $nama, $alamat, $kontak, $created_at);
+        $dat = $obj->updatepemasok($id, $kode_pemasok, $nama, $alamat, $kontak);
         $msg = getJSON($dat);
     }
     $rows  = $obj->getPemasok($id);
@@ -70,12 +69,6 @@
                         <label>kontak:</label>
                         <input type="text" class="form-control" id="kontak" name="kontak"
                             value="<?php echo $row['kontak']; ?>" />
-                    </div>
-
-
-                    <div class="form-group">
-                        <input type="hidden" class="form-control" id="created_at" name="created_at"
-                            value="<?php echo $row['created_at']; ?>" />
                     </div>
 
 

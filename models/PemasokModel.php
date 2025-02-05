@@ -55,16 +55,14 @@ class PemasokModel
         return $this->db->executeQuery($sql)->fetch(PDO::FETCH_ASSOC)['total'];
     }
 
-    public function updatePemasok($id, $kode_pemasok, $nama, $alamat, $kontak, $foto, $created_at)
+    public function updatePemasok($id, $kode_pemasok, $nama, $alamat, $kontak)
     {
-        $sql    = "UPDATE pemasok SET kode_pemasok = :kode_pemasok, nama = :nama, alamat = :alamat, kontak = :kontak, :foto = foto, created_at = :created_at  WHERE id = :id";
+        $sql    = "UPDATE pemasok SET kode_pemasok = :kode_pemasok, nama = :nama, alamat = :alamat, kontak = :kontak  WHERE id = :id";
         $params = [
             ":kode_pemasok" => $kode_pemasok,
             ":nama"         => $nama,
             ":alamat"       => $alamat,
             ":kontak"       => $kontak,
-            ":foto"         => $foto,
-            ":created_at"   => $created_at,
             ":id"           => $id,
         ];
 

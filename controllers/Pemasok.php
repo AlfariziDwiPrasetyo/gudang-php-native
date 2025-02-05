@@ -48,9 +48,9 @@ class PemasokController
         return $val;
     }
 
-    public function updatePemasok($id, $kode_pemasok, $nama, $alamat, $kontak, $foto, $created_at)
+    public function updatePemasok($id, $kode_pemasok, $nama, $alamat, $kontak)
     {
-        return $this->model->updatePemasok($id, $kode_pemasok, $nama, $alamat, $kontak, $foto, $created_at);
+        return $this->model->updatePemasok($id, $kode_pemasok, $nama, $alamat, $kontak);
     }
 
     public function updatefotoPemasok($id, $foto)

@@ -51,7 +51,17 @@ composer install
 Berikut adalah tampilan dari aplikasi:
 
 ### Halaman Dashboard
-![Dashboard](screenshots/image.png)
+![Dashboard](screenshots/dashboard.png)
+
+### Master Data
+![Barang](screenshots/image.png)
+
+### Transaksi
+![Transaksi](screenshots/transaksi.png)
+
+### Laporan Transaksi (PDF)
+![Laporan Transaksi](screenshots/laporan_transaksi.png)
+
 
 ## Catatan
 - Pastikan PHP, Composer dan MySQL sudah terinstal di komputer Anda.

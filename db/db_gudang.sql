@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 03, 2025 at 01:35 AM
+-- Generation Time: Feb 05, 2025 at 05:40 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -34,7 +34,7 @@ CREATE TABLE `barang` (
   `deskripsi` text COLLATE utf8mb4_general_ci,
   `satuan` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `stok` int DEFAULT '0',
-  `foto` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ;
@@ -44,10 +44,12 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id`, `kode_barang`, `nama`, `deskripsi`, `satuan`, `stok`, `foto`, `created_at`, `updated_at`) VALUES
-(1, 'BRG-9374', 'Pensil Merah', 'Pensil Merah Keren dan Murah', 'pcs', 300, '67a019fc1f82d.jpg', '2025-01-23 07:08:37', '2025-02-03 01:21:01'),
-(2, 'BRG-1253', 'Meja Besi', 'Meja Besi Keren', 'pcs', 120, '', '2025-01-23 13:57:53', '2025-01-23 13:57:53'),
-(3, 'BRG-9755', 'Meja Kayu', 'Meja Kayu Keren', 'pcs', 200, '', '2025-01-23 13:59:40', '2025-01-23 13:59:40'),
-(4, 'BRG-0295', 'Kursi Besi', 'Kursi Keren', 'pcs', 200, '67a01ceadc5e5.jpg', '2025-01-23 14:00:44', '2025-02-03 01:33:31');
+(1, 'BRG-9374', 'Pensil Merah', 'Pensil Merah Keren dan Murah', 'pcs', 1000, '67a019fc1f82d.jpg', '2025-01-23 07:08:37', '2025-02-05 04:42:31'),
+(2, 'BRG-1253', 'Meja Besi', 'Meja Besi Keren', 'pcs', 70, '', '2025-01-23 13:57:53', '2025-02-05 04:42:59'),
+(3, 'BRG-9755', 'Meja Kayu', 'Meja Kayu Keren', 'pcs', 800, '', '2025-01-23 13:59:40', '2025-02-03 03:12:52'),
+(4, 'BRG-0295', 'Kursi Besi', 'Kursi Keren', 'pcs', 200, '67a01ceadc5e5.jpg', '2025-01-23 14:00:44', '2025-02-03 01:33:31'),
+(5, 'BRG-6284', 'Meja Jepara', 'Meja cantik', 'pcs', 0, NULL, '2025-02-03 21:21:39', '2025-02-03 21:21:39'),
+(6, 'BRG-4181', 'Pulpen Hitam', 'Pulpen Keren', 'pcs', 250, NULL, '2025-02-05 05:33:20', '2025-02-05 05:33:20');
 
 -- --------------------------------------------------------
 
@@ -61,7 +63,7 @@ CREATE TABLE `pemasok` (
   `nama` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `alamat` text COLLATE utf8mb4_general_ci,
   `kontak` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `foto` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -72,8 +74,10 @@ CREATE TABLE `pemasok` (
 
 INSERT INTO `pemasok` (`id`, `kode_pemasok`, `nama`, `alamat`, `kontak`, `foto`, `created_at`, `updated_at`) VALUES
 (4, 'SPL-2397', 'Al Farizi Dwi Prasetyo', 'Indramayu', '+62 220 511 019', '67a01cb4f1b2e.png', '2025-01-23 08:42:17', '2025-02-03 01:32:37'),
-(5, 'SPL-5229', 'Dandy Royyan Firdaus', 'Cirebon', '+62 220 511 056', '', '2025-01-23 14:01:42', '2025-01-23 14:01:42'),
-(6, 'SPL-4380', 'Brilliant Fikri Wicaksono', 'Surabaya', '+62 812 2361 4056', '', '2025-01-23 14:05:05', '2025-01-23 14:05:05');
+(5, 'SPL-5229', 'Dandy Royyan Firdaus', 'Cirebon', '+62 220 511 056', '67a038e492757.jpeg', '2025-01-23 14:01:42', '2025-02-03 03:32:52'),
+(6, 'SPL-4380', 'Brilliant Fikri Wicaksono', 'Surabaya', '+62 812 2361 4056', '67a038fa5fd1c.png', '2025-01-23 14:05:05', '2025-02-03 03:33:14'),
+(7, 'SPL-3065', 'Makima', 'Jepang', '+12 1212 1212 1212', '67a133f102f78.png', '2025-02-03 21:23:19', '2025-02-03 21:24:01'),
+(8, 'SPL-7765', 'Kirito', 'Osaka', '+121 1212 1222 1244', '67a2f9670750c.jpg', '2025-02-05 05:33:53', '2025-02-05 05:38:47');
 
 -- --------------------------------------------------------
 
@@ -98,7 +102,11 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`id`, `kode_transaksi`, `kode_barang`, `kode_pemasok`, `jumlah`, `jenis_transaksi`, `tanggal`, `created_at`, `updated_at`) VALUES
-(20, 'TRX-2430', 'BRG-9374', 'SPL-2397', 200, 'masuk', '2025-02-01 05:03:22', '2025-02-01 05:03:22', '2025-02-01 05:03:22');
+(20, 'TRX-2430', 'BRG-9374', 'SPL-2397', 200, 'masuk', '2025-02-01 05:03:22', '2025-02-01 05:03:22', '2025-02-01 05:03:22'),
+(22, 'TRX-1737', 'BRG-9374', 'SPL-5229', 200, 'masuk', '2025-02-01 03:15:50', '2025-02-03 03:15:50', '2025-02-05 05:05:01'),
+(23, 'TRX-8213', 'BRG-1253', 'SPL-4380', 100, 'keluar', '2025-02-03 04:41:56', '2025-02-05 04:41:56', '2025-02-05 05:05:46'),
+(24, 'TRX-8848', 'BRG-9374', 'SPL-2397', 200, 'masuk', '2025-02-05 04:42:31', '2025-02-05 04:42:31', '2025-02-05 04:42:31'),
+(25, 'TRX-1374', 'BRG-1253', 'SPL-5229', 50, 'masuk', '2025-02-05 04:42:59', '2025-02-05 04:42:59', '2025-02-05 04:42:59');
 
 -- --------------------------------------------------------
 
@@ -119,7 +127,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nama`, `email`, `sandi`, `level`) VALUES
-(11, 'Al Farizi Dwi Prasetyo', 'alfarizi@gmail.com', '$2y$10$9bgzo.3LESVHrFeP4NT6mucxtBaXRcSMXpR5v1TLmDtdq1P5tbpEO', 'admin');
+(11, 'Al Farizi Dwi Prasetyo', 'alfarizi@gmail.com', '$2y$10$9bgzo.3LESVHrFeP4NT6mucxtBaXRcSMXpR5v1TLmDtdq1P5tbpEO', 'admin'),
+(12, 'Dandy Royyan Firdaus', 'dandy@gmail.com', '$2y$10$46SxpRNZa1yddxt4wOR69eaUT02FrA6zBs8c51DBXN5/O/IZOR9la', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -169,7 +178,7 @@ ALTER TABLE `barang`
 -- AUTO_INCREMENT for table `pemasok`
 --
 ALTER TABLE `pemasok`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
@@ -181,7 +190,7 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
